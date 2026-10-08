@@ -10,8 +10,12 @@
     Student ID: Tapses1661
     Project: GitHub Prep and Structural Implementation
     Date: October 8, 2026
-    Purpose: Create a personal portfolio website using
-    HTML, CSS, and JavaScript.
+
+    Purpose:
+    Create a personal portfolio website using HTML,
+    CSS, and JavaScript. The website includes navigation,
+    project image links, a contact form, and a personalized
+    welcome message.
     -->
 
     <title>Taphanatu Sesay | Portfolio</title>
@@ -42,7 +46,7 @@
             margin-bottom: 8px;
         }
 
-        /* Navigation links */
+        /* Navigation menu */
         nav {
             background-color: #254d78;
             padding: 14px;
@@ -61,7 +65,7 @@
             text-decoration: underline;
         }
 
-        /* Page content */
+        /* Main content */
         main {
             max-width: 900px;
             margin: 25px auto;
@@ -89,7 +93,23 @@
         }
 
         .project a {
-            color: #174f91;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        /* Project placeholder images */
+        .project img {
+            display: block;
+            width: 400px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #b5c6d9;
+        }
+
+        .project a:focus-visible {
+            outline: 3px solid #254d78;
+            outline-offset: 4px;
         }
 
         /* Contact form styling */
@@ -120,7 +140,8 @@
             cursor: pointer;
         }
 
-        button:hover {
+        button:hover,
+        button:focus {
             background-color: #306099;
         }
 
@@ -135,16 +156,22 @@
 
 <body>
 
-    <!-- Personalized welcome header -->
+    <!-- Main header and personalized welcome -->
     <header>
         <h1>Taphanatu Sesay | My Portfolio</h1>
-        <p>Computer Information Systems |
-           Software Development | Cybersecurity</p>
-        <p id="welcomeMessage">Welcome to my portfolio!</p>
+
+        <p>
+            Computer Information Systems |
+            Software Development | Cybersecurity
+        </p>
+
+        <p id="welcomeMessage">
+            Welcome to my portfolio!
+        </p>
     </header>
 
-    <!-- Navigation to the three required sections -->
-    <nav>
+    <!-- Navigation links -->
+    <nav aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
@@ -152,7 +179,7 @@
 
     <main>
 
-        <!-- About section -->
+        <!-- About Me section -->
         <section id="about">
             <h2>About Me</h2>
 
@@ -177,101 +204,170 @@
         <section id="projects">
             <h2>My Projects</h2>
 
+            <!-- Project 1 -->
             <div class="project">
                 <h3>Project 1: Variables and Alerts</h3>
+
                 <p>
                     A JavaScript shipping address form that
                     displays alerts and updates address fields
                     when users select Home or Work.
                 </p>
+
+                <!-- Project 1 placeholder image link -->
                 <a href="https://github.com/"
                    target="_blank"
-                   rel="noopener noreferrer">
-                    Project 1 GitHub Link (Placeholder)
+                   rel="noopener noreferrer"
+                   aria-label="Project 1 GitHub placeholder">
+
+                    <img
+                        src="https://placehold.co/400x160/183153/ffffff/png?text=Variables+and+Alerts"
+                        alt="Variables and Alerts project placeholder"
+                        width="400"
+                        height="160">
                 </a>
+
+                <p>
+                    <small>
+                        GitHub project link placeholder
+                    </small>
+                </p>
             </div>
 
+            <!-- Project 2 -->
             <div class="project">
                 <h3>Project 2: Updating Alerts</h3>
+
                 <p>
                     A JavaScript lunch ordering application
                     that calculates totals and displays
                     conditional alerts based on selections.
                 </p>
+
+                <!-- Project 2 placeholder image link -->
                 <a href="https://github.com/"
                    target="_blank"
-                   rel="noopener noreferrer">
-                    Project 2 GitHub Link (Placeholder)
+                   rel="noopener noreferrer"
+                   aria-label="Project 2 GitHub placeholder">
+
+                    <img
+                        src="https://placehold.co/400x160/183153/ffffff/png?text=Updating+Alerts"
+                        alt="Updating Alerts project placeholder"
+                        width="400"
+                        height="160">
                 </a>
+
+                <p>
+                    <small>
+                        GitHub project link placeholder
+                    </small>
+                </p>
             </div>
         </section>
 
         <!-- Contact section -->
         <section id="contact">
             <h2>Contact Me</h2>
+
             <p>
-                Use the form below to enter your contact
-                information and message.
+                Use the form below to enter your
+                contact information and message.
             </p>
 
             <form id="contactForm">
+
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name"
-                       required>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required>
 
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email"
-                       required>
+                <label for="email">
+                    Email Address
+                </label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required>
 
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject"
-                       required>
+                <label for="subject">
+                    Subject
+                </label>
+                <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    required>
 
-                <label for="message">Message</label>
-                <textarea id="message" name="message"
-                          rows="5" required></textarea>
+                <label for="message">
+                    Message
+                </label>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required></textarea>
 
-                <button type="submit">Submit</button>
+                <button type="submit">
+                    Submit
+                </button>
+
             </form>
 
             <p id="formMessage" role="status"></p>
+
         </section>
 
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Taphanatu Sesay. Portfolio Project.</p>
+        <p>
+            &copy; 2026 Taphanatu Sesay.
+            Portfolio Project.
+        </p>
     </footer>
 
     <script>
-        // Ask the visitor for their name and store it.
+
+        // Prompt the visitor for their name.
         let visitorName = prompt(
             "Welcome! What is your name?"
         );
 
-        // Personalize the welcome message.
+        // Find the welcome message on the webpage.
         const welcomeMessage =
             document.getElementById("welcomeMessage");
 
+        // Display a personalized welcome message.
         if (visitorName && visitorName.trim() !== "") {
+
             welcomeMessage.textContent =
                 "Welcome, " + visitorName.trim() +
                 "! Thank you for visiting my portfolio.";
+
         } else {
+
             welcomeMessage.textContent =
                 "Welcome! Thank you for visiting my portfolio.";
+
         }
 
-        // Demonstrate a local contact form submission.
-        // No email is sent or stored by this demo.
+        // Contact form demonstration.
+        // This form does not send or store messages.
         document.getElementById("contactForm")
             .addEventListener("submit", function(event) {
+
                 event.preventDefault();
 
                 document.getElementById("formMessage")
                     .textContent =
                     "Thank you! This is a demonstration form.";
+
             });
+
     </script>
 
 </body>
