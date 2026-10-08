@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+    Name: Taphanatu Sesay
+    Student ID: Tapses1661
+    Project: GitHub Prep and Structural Implementation
+    Date: October 8, 2026
+    Purpose: Create a personal portfolio website using
+    HTML, CSS, and JavaScript.
+    -->
+
+    <title>Taphanatu Sesay | Portfolio</title>
+
+    <style>
+        /* General webpage styling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f7fb;
+            color: #263244;
+            line-height: 1.6;
+        }
+
+        /* Main header */
+        header {
+            background-color: #183153;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        /* Navigation links */
+        nav {
+            background-color: #254d78;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            text-decoration: underline;
+        }
+
+        /* Page content */
+        main {
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        h2 {
+            color: #183153;
+        }
+
+        /* Project cards */
+        .project {
+            padding: 15px;
+            margin: 12px 0;
+            background-color: #edf3fa;
+            border-left: 4px solid #254d78;
+        }
+
+        .project a {
+            color: #174f91;
+        }
+
+        /* Contact form styling */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #aab6c5;
+            border-radius: 4px;
+            font: inherit;
+        }
+
+        button {
+            margin-top: 16px;
+            background-color: #183153;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #306099;
+        }
+
+        footer {
+            background-color: #183153;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Personalized welcome header -->
+    <header>
+        <h1>Taphanatu Sesay | My Portfolio</h1>
+        <p>Computer Information Systems |
+           Software Development | Cybersecurity</p>
+        <p id="welcomeMessage">Welcome to my portfolio!</p>
+    </header>
+
+    <!-- Navigation to the three required sections -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+
+        <!-- About section -->
+        <section id="about">
+            <h2>About Me</h2>
+
+            <p>
+                Hello! My name is Taphanatu Sesay.
+                I am studying Computer Information Systems
+                with a focus on software development and
+                cybersecurity. I enjoy learning how to build
+                websites, develop applications, and protect
+                information systems.
+            </p>
+
+            <p>
+                My goal is to continue developing my technical
+                skills in HTML, CSS, JavaScript, Python,
+                databases, and cybersecurity while creating
+                practical projects that demonstrate my growth.
+            </p>
+        </section>
+
+        <!-- Projects section -->
+        <section id="projects">
+            <h2>My Projects</h2>
+
+            <div class="project">
+                <h3>Project 1: Variables and Alerts</h3>
+                <p>
+                    A JavaScript shipping address form that
+                    displays alerts and updates address fields
+                    when users select Home or Work.
+                </p>
+                <a href="https://github.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Project 1 GitHub Link (Placeholder)
+                </a>
+            </div>
+
+            <div class="project">
+                <h3>Project 2: Updating Alerts</h3>
+                <p>
+                    A JavaScript lunch ordering application
+                    that calculates totals and displays
+                    conditional alerts based on selections.
+                </p>
+                <a href="https://github.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Project 2 GitHub Link (Placeholder)
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>
+                Use the form below to enter your contact
+                information and message.
+            </p>
+
+            <form id="contactForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name"
+                       required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email"
+                       required>
+
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject"
+                       required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message"
+                          rows="5" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <p id="formMessage" role="status"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Taphanatu Sesay. Portfolio Project.</p>
+    </footer>
+
+    <script>
+        // Ask the visitor for their name and store it.
+        let visitorName = prompt(
+            "Welcome! What is your name?"
+        );
+
+        // Personalize the welcome message.
+        const welcomeMessage =
+            document.getElementById("welcomeMessage");
+
+        if (visitorName && visitorName.trim() !== "") {
+            welcomeMessage.textContent =
+                "Welcome, " + visitorName.trim() +
+                "! Thank you for visiting my portfolio.";
+        } else {
+            welcomeMessage.textContent =
+                "Welcome! Thank you for visiting my portfolio.";
+        }
+
+        // Demonstrate a local contact form submission.
+        // No email is sent or stored by this demo.
+        document.getElementById("contactForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                document.getElementById("formMessage")
+                    .textContent =
+                    "Thank you! This is a demonstration form.";
+            });
+    </script>
+
+</body>
+</html>
