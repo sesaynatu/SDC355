@@ -130,10 +130,67 @@
             text-align: center;
             padding: 15px;
         }
+
+/* Dark Mode toggle styling */
+.theme-toggle {
+    padding: 12px 20px;
+    background-color: #e8edf4;
+    color: #263244;
+    text-align: right;
+}
+
+.theme-toggle label {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Dark Mode page colors */
+body.dark-mode {
+    background-color: #121820;
+    color: #f1f5f9;
+}
+
+body.dark-mode section {
+    background-color: #263244;
+    color: #f1f5f9;
+}
+
+body.dark-mode h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .project {
+    background-color: #34445a;
+    color: #ffffff;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: #263244;
+    color: #ffffff;
+}
+
+body.dark-mode a {
+    color: #90c8ff;
+}
+
+body.dark-mode nav a,
+body.dark-mode header {
+    color: #ffffff;
+}
+
     </style>
 </head>
 
 <body>
+
+<!-- Dark Mode toggle -->
+<div class="theme-toggle">
+    <label for="darkModeToggle">
+        <input type="checkbox" id="darkModeToggle">
+        Dark Mode
+    </label>
+</div>
+
 
     <!-- Personalized welcome header -->
     <header>
@@ -151,6 +208,43 @@
     </nav>
 
     <main>
+
+    <!-- Featured Content section -->
+    <section id="featured">
+        <h2>Featured Content</h2>
+
+        <!-- University resources for fewer than three projects -->
+        <div id="universityResources">
+            <h3>University Resources</h3>
+            <p>
+                Explore helpful resources related to
+                my Computer Information Systems studies.
+            </p>
+            <p>
+                <a href="https://www.ecpi.edu/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    ECPI University
+                </a>
+            </p>
+        </div>
+
+        <!-- Personal projects for three or more projects -->
+        <div id="personalProjects" hidden>
+            <h3>Personal Projects</h3>
+            <p>
+                Explore my personal software development
+                and cybersecurity projects.
+            </p>
+            <p>
+                <a href="https://github.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    GitHub Projects
+                </a>
+            </p>
+        </div>
+    </section>
 
         <!-- About section -->
         <section id="about">
@@ -171,6 +265,11 @@
                 databases, and cybersecurity while creating
                 practical projects that demonstrate my growth.
             </p>
+
+<!-- Skills generated dynamically using JavaScript -->
+<h3>My Technical Skills</h3>
+<ul id="skillsList"></ul>
+
         </section>
 
         <!-- Projects section -->
@@ -262,17 +361,83 @@
                 "Welcome! Thank you for visiting my portfolio.";
         }
 
-        // Demonstrate a local contact form submission.
-        // No email is sent or stored by this demo.
-        document.getElementById("contactForm")
-            .addEventListener("submit", function(event) {
-                event.preventDefault();
 
-                document.getElementById("formMessage")
-                    .textContent =
-                    "Thank you! This is a demonstration form.";
-            });
+    // Handle contact form submission without refreshing
+    // This demo does not send or store information.
+    document.getElementById("contactForm")
+        .addEventListener("submit", function(event) {
+
+            // Prevent the webpage from refreshing
+            event.preventDefault();
+
+            // Get the visitor's name
+            const name =
+                document.getElementById("name").value.trim();
+
+            // Display a personalized confirmation alert
+            alert("Thank you, " + name +
+                  ", your message has been sent!");
+
+            // Display confirmation on the webpage
+            document.getElementById("formMessage")
+                .textContent =
+                "Thank you, " + name +
+                "! Your message has been received.";
+        });
+
+
+    // Show featured content based on project count
+    const projectCount =
+        document.querySelectorAll("#projects .project").length;
+
+    const universityResources =
+        document.getElementById("universityResources");
+
+    const personalProjects =
+        document.getElementById("personalProjects");
+
+    // Use conditional logic to select featured content
+    if (projectCount < 3) {
+        universityResources.hidden = false;
+        personalProjects.hidden = true;
+    } else {
+        universityResources.hidden = true;
+        personalProjects.hidden = false;
+    }
+
+    // Array of technical skills and technologies
+    const skills = [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Python",
+        "Git",
+        "GitHub",
+        "Cybersecurity"
+    ];
+
+    // Display skills dynamically using a forEach loop
+    const skillsList = document.getElementById("skillsList");
+
+    skills.forEach(function(skill) {
+        const listItem = document.createElement("li");
+        listItem.textContent = skill;
+        skillsList.appendChild(listItem);
+    });
+
+    // Toggle between light and dark themes
+    const darkModeToggle =
+        document.getElementById("darkModeToggle");
+
+    darkModeToggle.addEventListener("change", function() {
+        document.body.classList.toggle(
+            "dark-mode",
+            darkModeToggle.checked
+        );
+    });
+
     </script>
+
 
 </body>
 </html>
