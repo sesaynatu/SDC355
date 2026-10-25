@@ -273,43 +273,6 @@ body.dark-mode header {
         </div>
     </section>
 
-    <!-- Featured Content section -->
-    <section id="featured">
-        <h2>Featured Content</h2>
-
-        <!-- University resources for fewer than three projects -->
-        <div id="universityResources">
-            <h3>University Resources</h3>
-            <p>
-                Explore helpful resources related to
-                my Computer Information Systems studies.
-            </p>
-            <p>
-                <a href="https://www.ecpi.edu/"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    ECPI University
-                </a>
-            </p>
-        </div>
-
-        <!-- Personal projects for three or more projects -->
-        <div id="personalProjects" hidden>
-            <h3>Personal Projects</h3>
-            <p>
-                Explore my personal software development
-                and cybersecurity projects.
-            </p>
-            <p>
-                <a href="https://github.com/"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    GitHub Projects
-                </a>
-            </p>
-        </div>
-    </section>
-
         <!-- About Me section -->
         <section id="about">
             <h2>About Me</h2>
@@ -492,28 +455,44 @@ body.dark-mode header {
         }
 
 
-    // Handle contact form submission without refreshing
-    // This demo does not send or store information.
-    document.getElementById("contactForm")
-        .addEventListener("submit", function(event) {
+    
+        // Project 3.9: Contact form with timed confirmation.
+        // This demonstration does not send or store data.
+        let confirmationTimer;
 
-            // Prevent the webpage from refreshing
-            event.preventDefault();
+        document.getElementById("contactForm")
+            .addEventListener("submit", function(event) {
 
-            // Get the visitor's name
-            const name =
-                document.getElementById("name").value.trim();
+                // Prevent the webpage from refreshing.
+                event.preventDefault();
 
-            // Display a personalized confirmation alert
-            alert("Thank you, " + name +
-                  ", your message has been sent!");
+                // Get the visitor's name.
+                const name = document
+                    .getElementById("name")
+                    .value.trim();
 
-            // Display confirmation on the webpage
-            document.getElementById("formMessage")
-                .textContent =
-                "Thank you, " + name +
-                "! Your message has been received.";
-        });
+                // Select the existing feedback element.
+                const formMessage =
+                    document.getElementById("formMessage");
+
+                // Cancel any previous confirmation timer.
+                clearTimeout(confirmationTimer);
+
+                // Display feedback immediately.
+                formMessage.textContent =
+                    "Sending your message...";
+                formMessage.style.color = "#1769aa";
+
+                // Display confirmation after 2.5 seconds.
+                confirmationTimer = setTimeout(function() {
+                    formMessage.textContent =
+                        "Thank you, " + name +
+                        "! Your message has been received (demo only).";
+
+                    formMessage.style.color = "#198754";
+                }, 2500);
+            });
+
 
 
     // Show featured content based on project count
@@ -565,6 +544,46 @@ body.dark-mode header {
             darkModeToggle.checked
         );
     });
+
+        // Project 3.9: Create and append a new project paragraph.
+        const projectsSection =
+            document.getElementById("projects");
+
+        const projectUpdate = document.createElement("p");
+        projectUpdate.textContent =
+            "Recent Project: Creating and Referencing DOM Elements " +
+            "using JavaScript to improve webpage interactivity.";
+
+        projectsSection.appendChild(projectUpdate);
+
+        // Modify two existing webpage elements.
+        const projectsHeading =
+            document.querySelector("#projects h2");
+
+        projectsHeading.textContent = "My Projects and Recent Work";
+        projectsHeading.style.color = "#1769aa";
+
+        const aboutHeading =
+            document.querySelector("#about h2");
+
+        aboutHeading.style.borderBottom =
+            "3px solid #1769aa";
+
+        // Create a notification at the top of the main content.
+        const notification = document.createElement("p");
+        notification.textContent =
+            "Welcome! New portfolio updates are available.";
+
+        notification.style.backgroundColor = "#e8f3ff";
+        notification.style.padding = "12px";
+        notification.style.borderRadius = "6px";
+
+        const mainContent = document.querySelector("main");
+
+        // Display the notification after two seconds.
+        setTimeout(function () {
+            mainContent.prepend(notification);
+        }, 2000);
 
     </script>
 
