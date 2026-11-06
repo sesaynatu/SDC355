@@ -8,14 +8,14 @@
     <!--
     Name: Taphanatu Sesay
     Student ID: Tapses1661
-    Project: GitHub Prep and Structural Implementation
-    Date: October 8, 2026
+    Project: SDC355 5.9 - Creating Scalable Foundations
+    Updated: November 5, 2026
 
     Purpose:
     Create a personal portfolio website using HTML,
     CSS, and JavaScript. The website includes navigation,
-    project image links, a contact form, and a personalized
-    welcome message.
+    dynamically rendered project objects, session storage,
+    a contact form, and a personalized welcome message.
     -->
 
     <title>Taphanatu Sesay | Portfolio</title>
@@ -316,7 +316,7 @@ body.dark-mode header {
                 and cybersecurity projects.
             </p>
             <p>
-                <a href="https://github.com/"
+                <a href="https://github.com/sesaynatu/SDC355"
                    target="_blank"
                    rel="noopener noreferrer">
                     GitHub Projects
@@ -355,65 +355,8 @@ body.dark-mode header {
         <section id="projects">
             <h2>My Projects</h2>
 
-            <!-- Project 1 -->
-            <div class="project">
-                <h3>Project 1: Variables and Alerts</h3>
-
-                <p>
-                    A JavaScript shipping address form that
-                    displays alerts and updates address fields
-                    when users select Home or Work.
-                </p>
-
-                <!-- Project 1 placeholder image link -->
-                <a href="https://github.com/"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Project 1 GitHub placeholder">
-
-                    <img
-                        src="https://placehold.co/400x160/183153/ffffff/png?text=Variables+and+Alerts"
-                        alt="Variables and Alerts project placeholder"
-                        width="400"
-                        height="160">
-                </a>
-
-                <p>
-                    <small>
-                        GitHub project link placeholder
-                    </small>
-                </p>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project">
-                <h3>Project 2: Updating Alerts</h3>
-
-                <p>
-                    A JavaScript lunch ordering application
-                    that calculates totals and displays
-                    conditional alerts based on selections.
-                </p>
-
-                <!-- Project 2 placeholder image link -->
-                <a href="https://github.com/"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Project 2 GitHub placeholder">
-
-                    <img
-                        src="https://placehold.co/400x160/183153/ffffff/png?text=Updating+Alerts"
-                        alt="Updating Alerts project placeholder"
-                        width="400"
-                        height="160">
-                </a>
-
-                <p>
-                    <small>
-                        GitHub project link placeholder
-                    </small>
-                </p>
-            </div>
+            <!-- Project 5.9: Cards are created from JavaScript objects. -->
+            <div id="projectCards" aria-live="polite"></div>
         </section>
 
         <!-- Contact section -->
@@ -547,24 +490,120 @@ body.dark-mode header {
 
 
 
-    // Show featured content based on project count
-    const projectCount =
-        document.querySelectorAll("#projects .project").length;
+    // Project 5.9: Create custom objects with title, summary,
+    // icon/image URL, and repository link for each project.
+    // The repository link points to the SDC355 project collection,
+    // not to separate repositories for each exercise.
+    const defaultProjects = [
+        {
+            title: "Variables and Alerts",
+            summary: "A JavaScript shipping-address exercise that uses alerts and changes address fields for Home or Work.",
+            imageUrl: "https://placehold.co/400x160/183153/ffffff/png?text=Variables+and+Alerts",
+            repositoryUrl: "https://github.com/sesaynatu/SDC355"
+        },
+        {
+            title: "Updating Alerts",
+            summary: "A lunch-ordering exercise that calculates totals and uses conditional alerts based on selections.",
+            imageUrl: "https://placehold.co/400x160/183153/ffffff/png?text=Updating+Alerts",
+            repositoryUrl: "https://github.com/sesaynatu/SDC355"
+        },
+        {
+            title: "DOM Elements and Interactivity",
+            summary: "JavaScript updates webpage headings and adds notifications and project text dynamically.",
+            imageUrl: "https://placehold.co/400x160/183153/ffffff/png?text=DOM+Interactivity",
+            repositoryUrl: "https://github.com/sesaynatu/SDC355"
+        },
+        {
+            title: "Persistent Portfolio Preferences",
+            summary: "A portfolio feature using a saved Dark Mode preference, a welcome modal, and a contact form demonstration.",
+            imageUrl: "https://placehold.co/400x160/183153/ffffff/png?text=Persistent+Storage",
+            repositoryUrl: "https://github.com/sesaynatu/SDC355"
+        }
+    ];
 
-    const universityResources =
-        document.getElementById("universityResources");
-
-    const personalProjects =
-        document.getElementById("personalProjects");
-
-    // Use conditional logic to select featured content
-    if (projectCount < 3) {
-        universityResources.hidden = false;
-        personalProjects.hidden = true;
-    } else {
-        universityResources.hidden = true;
-        personalProjects.hidden = false;
+    // Convert the project array to JSON and store it for this tab.
+    // On subsequent reloads, restore the JSON with JSON.parse().
+    const storageKey = "sdc355PortfolioProjects59";
+    let portfolioProjects;
+    try {
+        const savedProjects = sessionStorage.getItem(storageKey);
+        if (savedProjects === null) {
+            sessionStorage.setItem(
+                storageKey, JSON.stringify(defaultProjects)
+            );
+            portfolioProjects = defaultProjects;
+        } else {
+            const parsedProjects = JSON.parse(savedProjects);
+            if (!Array.isArray(parsedProjects) ||
+                !parsedProjects.every(function(project) {
+                    return project &&
+                        typeof project.title === "string" &&
+                        typeof project.summary === "string" &&
+                        typeof project.imageUrl === "string" &&
+                        typeof project.repositoryUrl === "string";
+                })) {
+                throw new Error("Invalid project data");
+            }
+            portfolioProjects = parsedProjects;
+        }
+    } catch (error) {
+        // Recover if session storage is unavailable or data is invalid.
+        portfolioProjects = defaultProjects;
+        try {
+            sessionStorage.setItem(
+                storageKey, JSON.stringify(defaultProjects)
+            );
+        } catch (storageError) {
+            console.warn("Session storage unavailable", storageError);
+        }
     }
+
+    // Render each project's title, summary, image, and repository link.
+    const projectCards = document.getElementById("projectCards");
+    projectCards.replaceChildren();
+
+    portfolioProjects.forEach(function(project, index) {
+        const card = document.createElement("article");
+        card.className = "project";
+
+        const title = document.createElement("h3");
+        title.textContent = "Project " + (index + 1) + ": " + project.title;
+
+        const summary = document.createElement("p");
+        summary.textContent = project.summary;
+
+        const link = document.createElement("a");
+        link.href = project.repositoryUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", "View SDC355 repository for " + project.title);
+
+        const picture = document.createElement("img");
+        picture.src = project.imageUrl;
+        picture.alt = project.title + " illustration";
+        picture.width = 400;
+        picture.height = 160;
+        picture.loading = "lazy";
+        link.appendChild(picture);
+
+        const linkText = document.createElement("p");
+        const linkLabel = document.createElement("a");
+        linkLabel.href = project.repositoryUrl;
+        linkLabel.target = "_blank";
+        linkLabel.rel = "noopener noreferrer";
+        linkLabel.textContent = "View SDC355 portfolio repository";
+        linkText.appendChild(linkLabel);
+
+        card.append(title, summary, link, linkText);
+        projectCards.appendChild(card);
+    });
+
+    // Choose featured content after dynamic cards have been rendered.
+    const projectCount = document.querySelectorAll("#projects .project").length;
+    const universityResources = document.getElementById("universityResources");
+    const personalProjects = document.getElementById("personalProjects");
+    universityResources.hidden = projectCount >= 3;
+    personalProjects.hidden = projectCount < 3;
 
     // Array of technical skills and technologies
     const skills = [
